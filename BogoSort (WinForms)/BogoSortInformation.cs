@@ -31,6 +31,8 @@ namespace BogoSort__WinForms_
             return threadId;
         }
 
+        public int GetItterationCount() {  return itteration; }
+
         public override string ToString()
         {
             string outputString = $"Thead {threadId}: Itteration {itteration} = [";

@@ -1,3 +1,5 @@
+using DiscordRPC;
+using DiscordRPC.Logging;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -17,10 +19,21 @@ namespace BogoSort__WinForms_
         Stopwatch stopwatch = new Stopwatch();
         ProgramState state = ProgramState.STOPPED;
         List<BackgroundWorker> workerList = new List<BackgroundWorker>();
+        DiscordRpcClient rpcClient;
 
         public mainWindow()
         {
+            rpcClient = new DiscordRpcClient("1073350391523201116");
+            rpcClient.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
+            rpcClient.Initialize();
             InitializeComponent();
+
+            rpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Bogo Sort",
+                State = "Waiting To Run The Bogo Sort"
+            });
+
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -61,6 +74,12 @@ namespace BogoSort__WinForms_
                 }
 
             }
+
+            rpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Bogo Sort",
+                State = $"Running a Bogo Sort with a data set of {list.Count} items. Actively using {workerList.Count} threads."
+            });
         }
 
         private void timerCount_Tick(object sender, EventArgs e)
@@ -106,6 +125,7 @@ namespace BogoSort__WinForms_
         private void BackgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
             BogoSortInformation sortInformation = (BogoSortInformation)e.UserState;
+
             WriteToConsoleWindow(sortInformation.ToString());
         }
 
