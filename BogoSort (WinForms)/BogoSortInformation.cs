@@ -11,9 +11,9 @@ namespace BogoSort__WinForms_
         private int itteration { get; set; }
         private List<int> sortedList { get; set; }
         private bool isComplete { get; set; }
-        private int threadNumber { get; set; }
+        private int threadId { get; set; }
 
-        public BogoSortInformation(int p_itteration, List<int> p_sortedList, bool p_isComplete) {
+        public BogoSortInformation(int p_itteration, List<int> p_sortedList, bool p_isComplete, int p_threadId) {
             itteration = p_itteration;
             if (p_sortedList != null)
             {
@@ -23,12 +23,17 @@ namespace BogoSort__WinForms_
                 sortedList = new List<int>();
             }
             isComplete = p_isComplete;
-            threadNumber = 0;
+            threadId = p_threadId;
+        }
+
+        public int GetThreadId()
+        {
+            return threadId;
         }
 
         public override string ToString()
         {
-            string outputString = $"Itteration {itteration} = [";
+            string outputString = $"Thead {threadId}: Itteration {itteration} = [";
             foreach (int i in sortedList)
             {
                 if (sortedList[sortedList.Count - 1] != i) outputString += $" {i}, ";
@@ -56,12 +61,13 @@ namespace BogoSort__WinForms_
             int temp;
             List<int> newList = new List<int>();
             Random r = new Random();
+            List<int> copy = new List<int>(sortedList);
 
-            while (sortedList.Count > 0)
+            while (copy.Count > 0)
             {
-                temp = (int)r.Next(sortedList.Count);
-                newList.Add(sortedList[temp]);
-                sortedList.RemoveAt(temp);
+                temp = r.Next(copy.Count);
+                newList.Add(copy[temp]);
+                copy.RemoveAt(temp);
             }
 
             itteration++;

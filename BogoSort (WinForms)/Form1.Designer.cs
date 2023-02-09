@@ -14,6 +14,7 @@
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
+            if (disposing && (components != null))
             {
                 components.Dispose();
             }
@@ -44,12 +45,15 @@
             this.lblStartTime = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblTimeElapsed = new System.Windows.Forms.Label();
+            this.listOutput = new System.Windows.Forms.ListBox();
             this.timerCount = new System.Windows.Forms.Timer(this.components);
             this.TmpBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.txtOutput = new System.Windows.Forms.RichTextBox();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupSettings
@@ -62,7 +66,7 @@
             this.groupSettings.Controls.Add(this.label1);
             this.groupSettings.Controls.Add(this.inpThreadCount);
             this.groupSettings.ForeColor = System.Drawing.Color.White;
-            this.groupSettings.Location = new System.Drawing.Point(12, 390);
+            this.groupSettings.Location = new System.Drawing.Point(12, 406);
             this.groupSettings.Name = "groupSettings";
             this.groupSettings.Size = new System.Drawing.Size(452, 189);
             this.groupSettings.TabIndex = 1;
@@ -127,7 +131,7 @@
             this.groupBox1.Controls.Add(this.btnEnd);
             this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(1210, 390);
+            this.groupBox1.Location = new System.Drawing.Point(1210, 406);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(151, 189);
             this.groupBox1.TabIndex = 2;
@@ -206,7 +210,7 @@
             this.groupBox2.Controls.Add(this.lblStartTime);
             this.groupBox2.Controls.Add(this.lblSeed);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(470, 390);
+            this.groupBox2.Location = new System.Drawing.Point(470, 406);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(734, 189);
             this.groupBox2.TabIndex = 3;
@@ -222,6 +226,20 @@
             this.lblTimeElapsed.TabIndex = 5;
             this.lblTimeElapsed.Text = "Time Elapsed:";
             // 
+            // listOutput
+            // 
+            this.listOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listOutput.BackColor = System.Drawing.Color.Black;
+            this.listOutput.ForeColor = System.Drawing.Color.LawnGreen;
+            this.listOutput.FormattingEnabled = true;
+            this.listOutput.ItemHeight = 14;
+            this.listOutput.Location = new System.Drawing.Point(12, 12);
+            this.listOutput.Name = "listOutput";
+            this.listOutput.Size = new System.Drawing.Size(1349, 382);
+            this.listOutput.TabIndex = 6;
+            // 
             // timerCount
             // 
             this.timerCount.Tick += new System.EventHandler(this.timerCount_Tick);
@@ -230,31 +248,35 @@
             // 
             this.TmpBackgroundWorker.WorkerReportsProgress = true;
             this.TmpBackgroundWorker.WorkerSupportsCancellation = true;
-            this.TmpBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.TmpBackgroundWorker_DoWork);
-            this.TmpBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.TmpBackgroundWorker_ProgressChanged);
-            this.TmpBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.TmpBackgroundWorker_RunWorkerCompleted);
+            this.TmpBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker_DoWork);
+            this.TmpBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.BackgroundWorker_ProgressChanged);
+            this.TmpBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker_RunWorkerCompleted);
             // 
-            // txtOutput
+            // statusStrip
             // 
-            this.txtOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtOutput.BackColor = System.Drawing.Color.Black;
-            this.txtOutput.ForeColor = System.Drawing.Color.LawnGreen;
-            this.txtOutput.Location = new System.Drawing.Point(12, 12);
-            this.txtOutput.Name = "txtOutput";
-            this.txtOutput.ReadOnly = true;
-            this.txtOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.txtOutput.Size = new System.Drawing.Size(1349, 372);
-            this.txtOutput.TabIndex = 4;
-            this.txtOutput.Text = "Adjust settings, then select \"Start Your Journey\" to begin.";
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip.Location = new System.Drawing.Point(0, 600);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1373, 22);
+            this.statusStrip.TabIndex = 5;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(306, 17);
+            this.toolStripStatusLabel1.Text = "Adjust settings, then select \"Start Your Journey\" to begin.";
             // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(43)))), ((int)(((byte)(60)))));
-            this.ClientSize = new System.Drawing.Size(1373, 591);
-            this.Controls.Add(this.txtOutput);
+            this.ClientSize = new System.Drawing.Size(1373, 622);
+            this.Controls.Add(this.listOutput);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupSettings);
@@ -268,7 +290,10 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -290,6 +315,8 @@
         private Label lblTimeElapsed;
         private System.Windows.Forms.Timer timerCount;
         private System.ComponentModel.BackgroundWorker TmpBackgroundWorker;
-        private RichTextBox txtOutput;
+        private StatusStrip statusStrip;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ListBox listOutput;
     }
 }
