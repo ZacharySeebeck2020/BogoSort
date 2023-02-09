@@ -1,6 +1,6 @@
 ﻿namespace BogoSort__WinForms_
 {
-    partial class Form1
+    partial class mainWindow
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,51 +29,38 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.listConsoleOutput = new System.Windows.Forms.ListView();
             this.groupSettings = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.inpDesiredSeed = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.inpDatasetSize = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.inpThreadCount = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.btnBreak = new System.Windows.Forms.Button();
+            this.btnEnd = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.lblSeed = new System.Windows.Forms.Label();
+            this.lblStartTime = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblTimeElapsed = new System.Windows.Forms.Label();
+            this.timerCount = new System.Windows.Forms.Timer(this.components);
+            this.TmpBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.txtOutput = new System.Windows.Forms.RichTextBox();
             this.groupSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // listConsoleOutput
-            // 
-            this.listConsoleOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listConsoleOutput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(43)))), ((int)(((byte)(60)))));
-            this.listConsoleOutput.Font = new System.Drawing.Font("Candara", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.listConsoleOutput.ForeColor = System.Drawing.Color.White;
-            this.listConsoleOutput.Location = new System.Drawing.Point(12, 12);
-            this.listConsoleOutput.Name = "listConsoleOutput";
-            this.listConsoleOutput.Size = new System.Drawing.Size(1349, 372);
-            this.listConsoleOutput.TabIndex = 0;
-            this.listConsoleOutput.UseCompatibleStateImageBehavior = false;
-            // 
             // groupSettings
             // 
             this.groupSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupSettings.Controls.Add(this.label3);
-            this.groupSettings.Controls.Add(this.textBox3);
+            this.groupSettings.Controls.Add(this.inpDesiredSeed);
             this.groupSettings.Controls.Add(this.label2);
-            this.groupSettings.Controls.Add(this.textBox2);
+            this.groupSettings.Controls.Add(this.inpDatasetSize);
             this.groupSettings.Controls.Add(this.label1);
-            this.groupSettings.Controls.Add(this.textBox1);
+            this.groupSettings.Controls.Add(this.inpThreadCount);
             this.groupSettings.ForeColor = System.Drawing.Color.White;
             this.groupSettings.Location = new System.Drawing.Point(12, 390);
             this.groupSettings.Name = "groupSettings";
@@ -91,13 +78,13 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Desired Seed (Leave empty to randomize)";
             // 
-            // textBox3
+            // inpDesiredSeed
             // 
-            this.textBox3.Location = new System.Drawing.Point(6, 161);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(440, 22);
-            this.textBox3.TabIndex = 4;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.inpDesiredSeed.Enabled = false;
+            this.inpDesiredSeed.Location = new System.Drawing.Point(6, 161);
+            this.inpDesiredSeed.Name = "inpDesiredSeed";
+            this.inpDesiredSeed.Size = new System.Drawing.Size(440, 22);
+            this.inpDesiredSeed.TabIndex = 4;
             // 
             // label2
             // 
@@ -107,15 +94,13 @@
             this.label2.Size = new System.Drawing.Size(69, 14);
             this.label2.TabIndex = 3;
             this.label2.Text = "Dataset Size";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // textBox2
+            // inpDatasetSize
             // 
-            this.textBox2.Location = new System.Drawing.Point(112, 35);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 2;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.inpDatasetSize.Location = new System.Drawing.Point(112, 35);
+            this.inpDatasetSize.Name = "inpDatasetSize";
+            this.inpDatasetSize.Size = new System.Drawing.Size(100, 22);
+            this.inpDatasetSize.TabIndex = 2;
             // 
             // label1
             // 
@@ -126,19 +111,21 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Thread Count";
             // 
-            // textBox1
+            // inpThreadCount
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 0;
+            this.inpThreadCount.Location = new System.Drawing.Point(6, 35);
+            this.inpThreadCount.Name = "inpThreadCount";
+            this.inpThreadCount.Size = new System.Drawing.Size(100, 22);
+            this.inpThreadCount.TabIndex = 0;
+            this.inpThreadCount.Text = "1";
+            this.inpThreadCount.TextChanged += new System.EventHandler(this.inpThreadCount_TextChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnBreak);
+            this.groupBox1.Controls.Add(this.btnEnd);
+            this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(1210, 390);
             this.groupBox1.Name = "groupBox1";
@@ -147,76 +134,77 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Controls";
             // 
-            // button3
+            // btnBreak
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnBreak.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(14, 47);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(125, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Take A Lil Break";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnBreak.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(106)))), ((int)(((byte)(79)))));
+            this.btnBreak.FlatAppearance.BorderSize = 0;
+            this.btnBreak.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBreak.ForeColor = System.Drawing.Color.White;
+            this.btnBreak.Location = new System.Drawing.Point(14, 47);
+            this.btnBreak.Name = "btnBreak";
+            this.btnBreak.Size = new System.Drawing.Size(125, 23);
+            this.btnBreak.TabIndex = 2;
+            this.btnBreak.Text = "Take A Lil Break";
+            this.btnBreak.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnEnd
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(79)))), ((int)(((byte)(79)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(14, 160);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(125, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Stop For Good";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnEnd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(79)))), ((int)(((byte)(79)))));
+            this.btnEnd.FlatAppearance.BorderSize = 0;
+            this.btnEnd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnd.ForeColor = System.Drawing.Color.White;
+            this.btnEnd.Location = new System.Drawing.Point(14, 160);
+            this.btnEnd.Name = "btnEnd";
+            this.btnEnd.Size = new System.Drawing.Size(125, 23);
+            this.btnEnd.TabIndex = 1;
+            this.btnEnd.Text = "Stop For Good";
+            this.btnEnd.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btnStart
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(110)))), ((int)(((byte)(83)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(14, 18);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Start Your Journey";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(110)))), ((int)(((byte)(83)))));
+            this.btnStart.FlatAppearance.BorderSize = 0;
+            this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStart.ForeColor = System.Drawing.Color.White;
+            this.btnStart.Location = new System.Drawing.Point(14, 18);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(125, 23);
+            this.btnStart.TabIndex = 0;
+            this.btnStart.Text = "Start Your Journey";
+            this.btnStart.UseVisualStyleBackColor = false;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // label4
+            // lblSeed
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 14);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Used Seed: ";
+            this.lblSeed.AutoSize = true;
+            this.lblSeed.Location = new System.Drawing.Point(6, 22);
+            this.lblSeed.Name = "lblSeed";
+            this.lblSeed.Size = new System.Drawing.Size(67, 14);
+            this.lblSeed.TabIndex = 3;
+            this.lblSeed.Text = "Used Seed: ";
             // 
-            // label5
+            // lblStartTime
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 43);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 14);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Time Started:";
+            this.lblStartTime.AutoSize = true;
+            this.lblStartTime.Location = new System.Drawing.Point(6, 43);
+            this.lblStartTime.Name = "lblStartTime";
+            this.lblStartTime.Size = new System.Drawing.Size(75, 14);
+            this.lblStartTime.TabIndex = 4;
+            this.lblStartTime.Text = "Time Started:";
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.lblTimeElapsed);
+            this.groupBox2.Controls.Add(this.lblStartTime);
+            this.groupBox2.Controls.Add(this.lblSeed);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
             this.groupBox2.Location = new System.Drawing.Point(470, 390);
             this.groupBox2.Name = "groupBox2";
@@ -225,31 +213,56 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Additional Output";
             // 
-            // label6
+            // lblTimeElapsed
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 66);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(78, 14);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Time Elapsed:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
+            this.lblTimeElapsed.AutoSize = true;
+            this.lblTimeElapsed.Location = new System.Drawing.Point(6, 66);
+            this.lblTimeElapsed.Name = "lblTimeElapsed";
+            this.lblTimeElapsed.Size = new System.Drawing.Size(78, 14);
+            this.lblTimeElapsed.TabIndex = 5;
+            this.lblTimeElapsed.Text = "Time Elapsed:";
             // 
-            // Form1
+            // timerCount
+            // 
+            this.timerCount.Tick += new System.EventHandler(this.timerCount_Tick);
+            // 
+            // TmpBackgroundWorker
+            // 
+            this.TmpBackgroundWorker.WorkerReportsProgress = true;
+            this.TmpBackgroundWorker.WorkerSupportsCancellation = true;
+            this.TmpBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.TmpBackgroundWorker_DoWork);
+            this.TmpBackgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.TmpBackgroundWorker_ProgressChanged);
+            this.TmpBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.TmpBackgroundWorker_RunWorkerCompleted);
+            // 
+            // txtOutput
+            // 
+            this.txtOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtOutput.BackColor = System.Drawing.Color.Black;
+            this.txtOutput.ForeColor = System.Drawing.Color.LawnGreen;
+            this.txtOutput.Location = new System.Drawing.Point(12, 12);
+            this.txtOutput.Name = "txtOutput";
+            this.txtOutput.ReadOnly = true;
+            this.txtOutput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.txtOutput.Size = new System.Drawing.Size(1349, 372);
+            this.txtOutput.TabIndex = 4;
+            this.txtOutput.Text = "Adjust settings, then select \"Start Your Journey\" to begin.";
+            // 
+            // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(43)))), ((int)(((byte)(60)))));
             this.ClientSize = new System.Drawing.Size(1373, 591);
+            this.Controls.Add(this.txtOutput);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupSettings);
-            this.Controls.Add(this.listConsoleOutput);
             this.Font = new System.Drawing.Font("Candara", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.MinimumSize = new System.Drawing.Size(1000, 630);
-            this.Name = "Form1";
+            this.Name = "mainWindow";
             this.Text = "BogoSort (Not Running)";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.groupSettings.ResumeLayout(false);
             this.groupSettings.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -260,23 +273,23 @@
         }
 
         #endregion
-
-        private ListView listConsoleOutput;
         private GroupBox groupSettings;
         private GroupBox groupBox1;
         private Label label2;
-        private TextBox textBox2;
+        private TextBox inpDatasetSize;
         private Label label1;
-        private TextBox textBox1;
+        private TextBox inpThreadCount;
         private Label label3;
-        private TextBox textBox3;
-        private Button button3;
-        private Button button2;
-        private Button button1;
-        private Label label4;
-        private Label label5;
+        private TextBox inpDesiredSeed;
+        private Button btnBreak;
+        private Button btnEnd;
+        private Button btnStart;
+        private Label lblSeed;
+        private Label lblStartTime;
         private GroupBox groupBox2;
-        private Label label6;
-        private System.Windows.Forms.Timer timer1;
+        private Label lblTimeElapsed;
+        private System.Windows.Forms.Timer timerCount;
+        private System.ComponentModel.BackgroundWorker TmpBackgroundWorker;
+        private RichTextBox txtOutput;
     }
 }
